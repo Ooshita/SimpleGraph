@@ -1,7 +1,6 @@
 var s = Snap(800,600,"#svg");
-var rect = s.rect(100, 100, 150, 50);
-var rect2;
-rect.attr({fill: '#d0eef5', stroke: '#000'})
+var rectArr = new Array();
+var index = -1;
 
 var onmove = function(dx,dy) {
     this.attr({
@@ -17,17 +16,16 @@ var onend = function() {
 }
 
 var clickFunc = function () {
-    
-    rect2 = s.rect(400, 100, 150, 50);
-    rect2.drag(onmove, onstart, onend);
-    rect2.attr({fill: '#d0eef5', stroke: '#000'});
+    index = index + 1;
+    rectArr[index] = s.rect(400, 100, 150, 50);
+    rectArr[index].drag(onmove, onstart, onend);
+    rectArr[index].attr({fill: '#d0eef5', stroke: '#000'});
+    rectArr[index].click(clickFunc2);
 };
 
 var clickFunc2 = function () {
-    var t = s.line(rect.getBBox().cx, rect.getBBox().cy, rect2.getBBox().cx, rect2.getBBox().cy);
+    var t = s.line(rectArr[index].getBBox().cx, rectArr[index].getBBox().cy, rectArr[index-1].getBBox().cx, rectArr[index-1].getBBox().cy);
     t.attr({fill: '#none', stroke: '#000', strokeWidth: 2});
 };
 
-rect.drag(onmove, onstart, onend);
 s.dblclick(clickFunc);
-rect.click(clickFunc2);
