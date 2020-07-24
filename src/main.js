@@ -6,16 +6,17 @@ var objWidth, objHeight;
 var x, y, relX, relY;
 var dragged;
 
-var box = new Array()
+var box = new Array();
 var i = 0;
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-  
+
 function drawRect() {
   //context.clearRect(0, 0, canvas.width, canvas.height); // キャンバスをクリア
-  box[i] = ctx.fillRect(objX, objY, objWidth, objHeight);
-  i++;
+  ctx.fillRect(objX, objY, objWidth, objHeight);
+  //box[i] = ctx.fillRect(objX, objY, objWidth, objHeight);
+  //i++;
 }
 
 canvas.addEventListener('dragstart', function(event) {
@@ -35,7 +36,7 @@ canvas.addEventListener('dragend', function(event) {
     objY = y;
 
     // オブジェクトを描画
-    drawRect(event.target.getContext);
+    drawRect();
 }, false);
 
 canvas.addEventListener("dragover", function(event) {
@@ -43,6 +44,8 @@ canvas.addEventListener("dragover", function(event) {
   }, false);
 
 canvas.addEventListener('dblclick', function(event) {
+    objWidth = 150;
+    objHeight = 50;
     x = event.clientX;
     y = event.clientY;
     objX = x;
